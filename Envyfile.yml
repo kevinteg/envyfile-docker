@@ -4,11 +4,11 @@ project_config:
   remote_user: ubuntu
   flavor_name: n1.large
   provision_scripts:
-    - ./script/provision.sh
+    - ./script/install_kernel.sh
+    - ./script/install_docker.sh
   sec_groups: [
     'icmp, -1, -1, 0.0.0.0/0',
     'tcp, 22, 22, 0.0.0.0/0',
     'tcp, 80, 80, 0.0.0.0/0',
-    'tcp, 3000, 3000, 0.0.0.0/0'
+    'tcp, 5000, 5000, 0.0.0.0/0'
   ]
-

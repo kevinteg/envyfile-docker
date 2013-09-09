@@ -4,12 +4,33 @@
 #   http://docs.docker.io/en/latest/installation/ubuntulinux/
 #
 
+is_complete() {
+    if [[ "$(sudo docker run -i -t busybox echo 'success')" =~ 'success' ]]; then
+	echo "Docker installed correctly."
+	return 0
+    else
+	echo "Docker NOT installed correctly."
+	return 1
+    fi
+}
 
-# Install 3.8 linux kernel (lxc and aufs requirement)
-sudo apt-get update
-sudo apt-get install -y linux-image-generic-lts-raring linux-headers-generic-lts-raring
+exit_success() {
+    echo "*********************************************************************"
+    echo "Docker Install Complete"
+    echo "*********************************************************************"    
 
-# Note:  Steps above require a reboot to activate.  Make sure you do that after initial envy up!
+    exit 0
+}
+
+exit_failure() {
+    echo "Failed to install docker!"
+
+    exit 1
+}
+
+is_complete && exit_success
+
+echo "Installing docker"
 
 # Add the Docker repository key to your local keychain
 # using apt-key finger you can check the fingerprint matches 36A1 D786 9245 C895 0F96 6E92 D857 6A8B A88D 21E9
@@ -22,7 +43,7 @@ sudo sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources
 sudo apt-get update
 
 # Install, you will see another warning that the package cannot be authenticated. Confirm install.
-sudo apt-get install -y lxc-docker
+sudo apt-get install -q -y lxc-docker
 
-# download the base 'ubuntu' container and run bash inside it while setting up an interactive shell
-sudo docker run -i -t busybox echo 'hello from busybox on docker!' || echo "docker command failed.  Make sure you rebooted after initial envy up"
+is_complete || exit_failure
+exit_success
