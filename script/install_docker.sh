@@ -32,6 +32,10 @@ is_complete && exit_success
 
 echo "Installing docker"
 
+# Adding ubuntu user to docker group
+sudo groupadd docker
+sudo gpasswd -a ubuntu docker
+
 # Add the Docker repository key to your local keychain
 # using apt-key finger you can check the fingerprint matches 36A1 D786 9245 C895 0F96 6E92 D857 6A8B A88D 21E9
 sudo sh -c "curl https://get.docker.io/gpg | apt-key add -"

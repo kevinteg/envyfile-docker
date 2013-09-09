@@ -15,12 +15,12 @@ First time through, it will install the required linux kernel (3.8).  After inst
 
     envy up
 
-again to continue provisioning docker.
+again to continue provisioning docker.  This instance adds the ubuntu user to the docker group, so you don't need to run sudo for docker commands.
 
 #### Running docker-registry
 
 Run:
 
-    sudo docker run -i -t samalba/docker-registry
+    docker run -i -t samalba/docker-registry
 
 This will pull down the docker-registry container from the public docker registry.
