@@ -5,7 +5,7 @@
 #
 
 is_complete() {
-  if [ "$(uname -r)" == '3.8.0-30-generic' ]; then
+  if [[ "$(uname -r)" =~ '3.8.0' ]]; then
     echo "running correct kernel with aufs and lxc support"
     return 0
   else
